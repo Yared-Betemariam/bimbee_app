@@ -11,6 +11,7 @@ import {
 import {
   Authentication,
   Dashboard,
+  DashboardHome,
   Login,
   PageNotFound,
   Signup,
@@ -36,6 +37,7 @@ const App = () => {
         navigate("/dashboard");
       } catch (error) {
         console.log(error);
+        navigate("/auth");
       } finally {
         setLoading(false);
       }
@@ -45,17 +47,9 @@ const App = () => {
 
   if (loading)
     return (
-      <div
-        className="min-h-screen flex items-center justify-center"
-        style={{
-          background: `linear-gradient(135deg, #D0A546, #CA6843)`,
-          backgroundPosition: "bottom",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      >
+      <div className="min-h-screen flex items-center justify-center bg-gray-800">
         <Spinner />
-        <h1 className="text-2xl font-semibold">Loading...</h1>
+        <h1 className="text-2xl font-semibold text-orange-400">Loading...</h1>
       </div>
     );
 
@@ -64,8 +58,9 @@ const App = () => {
       <Routes>
         {/* client users */}
         <Route path="/" element={<Layout setUser={setUser} user={user} />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="profile/:uid" element={<UserProfile />} />
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route index element={<DashboardHome />} />
+          </Route>
           <Route path="*" element={<PageNotFound />} />
         </Route>
         {/* auth layout */}

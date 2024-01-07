@@ -13,8 +13,8 @@ const Header = ({ user, logout }) => {
       path: "test",
     },
     {
-      name: "words",
-      path: "Word List",
+      name: "words Analysis",
+      path: "analysis",
     },
   ];
   const profileHelpers = [
@@ -23,8 +23,8 @@ const Header = ({ user, logout }) => {
     },
   ];
   return (
-    <header className="flex flex-col h-18">
-      <section className=" max-w-7xl mx-auto w-full flex items-center justify-between px-6 py-3 md:py-4 h-full relative">
+    <header className="flex flex-col h-18 bg-gray-900 bg-opacity-90">
+      <section className=" max-w-7xl mx-auto w-full flex items-center justify-between px-6 py-3 md:py-4 h-full  relative">
         <Link to="/dashboard">
           <Logo className=" text-gradient-to-b text-orange-400" />
         </Link>

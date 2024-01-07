@@ -1,6 +1,7 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MdAccountCircle } from "react-icons/md";
+import { FaSignOutAlt } from "react-icons/fa";
 
 import { dropdown } from "../animations";
 
@@ -14,7 +15,7 @@ const ProfileSection = ({
   return (
     <>
       <div
-        className="flex justify-center items-center gap-2 font-medium text-white  rounded-md bg-black px-4 py-[2.5px] bg-opacity-15 z-50 relative shadow-md"
+        className="flex justify-center items-center gap-2 font-medium text-white  rounded-md bg-gray-800 px-4 py-[2.5px] bg-opacity-500 z-50 relative shadow-md"
         onMouseEnter={() => setIsHovering((prev) => !prev)}
       >
         <p className=" capitalize font-out">{user?.username}</p>
@@ -38,7 +39,7 @@ const ProfileDropDown = ({ user, profileHelpers, logout, setIsHovering }) => {
   return (
     <motion.div
       {...dropdown}
-      className="  font-medium absolute right-4 w-64 flex flex-col top-14 rounded-md text-white"
+      className="  font-medium absolute right-4 w-64 flex flex-col md:top-20 top-16 rounded-md text-white border-orange-600 border-t-2 border-b-2"
       onMouseLeave={() => setIsHovering((prev) => !prev)}
       onClick={() => setIsHovering((prev) => !prev)}
     >
@@ -47,14 +48,20 @@ const ProfileDropDown = ({ user, profileHelpers, logout, setIsHovering }) => {
         <p className="opacity-60">{user?.email}</p>
       </div>
 
-      <div className="flex py-3 px-4 flex-col gap-2 rounded-b-md border-orange-600 bg-gray-900 border-l-2 border-b-2 border-r-2 bg-opacity-40 hover:opacity-80 active:scale-95 ease-in-out transition-all">
+      <div className="flex py-3 px-4 flex-col gap-2 rounded-b-md bg-gray-900 bg-opacity-40 w-full">
         {profileHelpers.map((helper) => (
-          <p key={helper.name}>{helper.name}</p>
+          <p
+            className="active:scale-95 hover:opacity-80 ease-in-out transition-all "
+            key={helper.name}
+          >
+            {helper.name}
+          </p>
         ))}
         <button
-          className="bg-white text-gray-900 rounded-md px-4 py-2 bg-opacity-85  font-semibold hover:opacity-80 active:scale-95 ease-in-out transition-all"
+          className="bg-white text-gray-900 rounded-md px-4 py-2 bg-opacity-85  font-semibold hover:opacity-80 active:scale-95 ease-in-out transition-all flex items-center gap-4"
           onClick={logout}
         >
+          <FaSignOutAlt />
           Sign Out
         </button>
       </div>
