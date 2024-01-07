@@ -1,4 +1,7 @@
-export { default as Home } from "./Home";
+export { default as Dashboard } from "./Dashboard";
 export { default as UserProfile } from "./UserProfile";
-export { default as AdminHome } from "./admin/AdminHome";
+
 export { default as Authentication } from "./auth/Authentication";
+export { default as Signup } from "./auth/SignUp";
+export { default as Login } from "./auth/Login";
+export { default as PageNotFound } from "./PageNotFound";
