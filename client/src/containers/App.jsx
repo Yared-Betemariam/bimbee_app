@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 
 import {
+  Link,
   Navigate,
   Route,
   Routes,
@@ -9,17 +10,22 @@ import {
 } from "react-router-dom";
 
 import {
+  Analysis,
   Authentication,
   Dashboard,
   DashboardHome,
   Login,
   PageNotFound,
   Signup,
+  SpellingTest,
   UserProfile,
+  WordList,
+  WordOfTheDay,
 } from "../pages";
 import { AuthLayout, Layout } from "../layouts";
 import { getLoggedInUser } from "../network/users_api";
 import { Spinner } from "../components";
+import TestSimulation from "../pages/dashboard/spellingtest/TestSimulation";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -58,9 +64,15 @@ const App = () => {
       <Routes>
         {/* client users */}
         <Route path="/" element={<Layout setUser={setUser} user={user} />}>
+          <Route index element={<Link to="/dashboard">Get Started</Link>} />
           <Route path="dashboard" element={<Dashboard />}>
             <Route index element={<DashboardHome />} />
+            <Route path="words" element={<WordList />} />
+            <Route path="word" element={<WordOfTheDay />} />
           </Route>
+          <Route path="analysis" element={<Analysis />} />
+          <Route path="tests" element={<SpellingTest />} />
+          <Route path="test" element={<TestSimulation />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
         {/* auth layout */}

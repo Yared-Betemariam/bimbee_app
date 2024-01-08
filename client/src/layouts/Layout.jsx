@@ -16,7 +16,6 @@ const Layout = ({ user, setUser }) => {
       <Header user={user} logout={logout} />
       <main className="flex flex-col bg-gray-900 bg-opacity-70 flex-1 w-full text-white">
         <Outlet />
-        <section className="max-w-7xl mx-auto w-full"></section>
       </main>
       <Footer />
     </div>

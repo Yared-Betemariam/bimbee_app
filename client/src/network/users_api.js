@@ -1,13 +1,8 @@
-import { getAU } from ".";
+import { getAU, hOptions } from ".";
 import axios from "axios";
-const currentToken = localStorage.getItem("user_jwt");
 
 export async function getLoggedInUser() {
-  const res = await axios.get(getAU("/auth"), {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(currentToken)}`,
-    },
-  });
+  const res = await axios.get(getAU("/auth"), hOptions);
   return res.data;
 }
 

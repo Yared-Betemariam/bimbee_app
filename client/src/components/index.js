@@ -6,3 +6,5 @@ export { default as Spinner } from "./Spinner";
 
 export { default as NavLinks } from "./NavLinks";
 export { default as ProfileSection } from "./ProfileSection";
+export { default as Word } from "./dashboard/Word";
+export { default as Loading } from "./Loading";

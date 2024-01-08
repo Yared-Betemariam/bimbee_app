@@ -23,7 +23,7 @@ const Login = ({ setUser }) => {
       const res = await logUserIn(FormData);
       setUser({ ...res.user, token: res.token });
       localStorage.setItem("user_jwt", JSON.stringify(res.token));
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       const errorRes = await error.response;
       const errorData = errorRes.data;

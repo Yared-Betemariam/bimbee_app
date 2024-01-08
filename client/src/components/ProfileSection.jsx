@@ -39,7 +39,7 @@ const ProfileDropDown = ({ user, profileHelpers, logout, setIsHovering }) => {
   return (
     <motion.div
       {...dropdown}
-      className="  font-medium absolute right-4 w-64 flex flex-col md:top-20 top-16 rounded-md text-white border-orange-600 border-t-2 border-b-2"
+      className="  font-medium absolute right-4 w-64 flex flex-col md:top-20 top-16 rounded-md text-white border-orange-600 border-t-2 z-50 border-b-2"
       onMouseLeave={() => setIsHovering((prev) => !prev)}
       onClick={() => setIsHovering((prev) => !prev)}
     >
@@ -48,7 +48,7 @@ const ProfileDropDown = ({ user, profileHelpers, logout, setIsHovering }) => {
         <p className="opacity-60">{user?.email}</p>
       </div>
 
-      <div className="flex py-3 px-4 flex-col gap-2 rounded-b-md bg-gray-900 bg-opacity-40 w-full">
+      <div className="flex py-3 px-4 flex-col gap-2 rounded-b-md bg-gray-900 bg-opacity-70 w-full">
         {profileHelpers.map((helper) => (
           <p
             className="active:scale-95 hover:opacity-80 ease-in-out transition-all "

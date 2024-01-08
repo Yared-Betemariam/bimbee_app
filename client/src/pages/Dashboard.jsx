@@ -8,7 +8,7 @@ const Dashboard = () => {
     {
       icon: <FaTableList />,
       name: "Word List",
-      path: "wordlist",
+      path: "words",
     },
     {
       icon: <GiPerspectiveDiceSixFacesRandom />,

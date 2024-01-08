@@ -7,3 +7,11 @@ export async function fetchData(input, init) {
 export const getAU = (url) => {
   return `${baseAPIURL}${url}`;
 };
+
+const currentToken = localStorage.getItem("user_jwt");
+
+export const hOptions = {
+  headers: {
+    Authorization: `Bearer ${JSON.parse(currentToken)}`,
+  },
+};

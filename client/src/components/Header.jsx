@@ -10,7 +10,7 @@ const Header = ({ user, logout }) => {
   const navLinks = [
     {
       name: "Spelling Test",
-      path: "test",
+      path: "tests",
     },
     {
       name: "words Analysis",
