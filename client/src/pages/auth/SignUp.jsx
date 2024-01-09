@@ -32,7 +32,7 @@ const SignUp = ({ setUser }) => {
         const res = await signUserIn(FormData);
         setUser({ ...res.user, token: res.token });
         localStorage.setItem("user_jwt", JSON.stringify(res.token));
-        navigate("/");
+        window.location.reload();
       }
     } catch (error) {
       const errorRes = await error.response;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { ErrorOccured } from "../../components";
 import { getLoggedInUser, logUserIn } from "../../network/users_api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = ({ setUser }) => {
   const [FormData, setFromData] = useState({
@@ -12,6 +12,7 @@ const Login = ({ setUser }) => {
   const [errorMsg, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -23,7 +24,7 @@ const Login = ({ setUser }) => {
       const res = await logUserIn(FormData);
       setUser({ ...res.user, token: res.token });
       localStorage.setItem("user_jwt", JSON.stringify(res.token));
-      navigate("/");
+      window.location.reload();
     } catch (error) {
       const errorRes = await error.response;
       const errorData = errorRes.data;
