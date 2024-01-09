@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div>
-      <div className="relative sm:h-1/2">
+      <div className="relative w-full sm:h-1/2">
         <img
-          className="rounded-xl object-cover object-center sm:max-h-[50vh]"
+          className="rounded-xl w-full object-cover object-center sm:max-h-[50vh]"
           src={LoginBG}
           alt=""
         />
@@ -21,7 +21,7 @@ const Home = () => {
           </p>
           <p>To getstarted using click here</p>
           <Link to="words" className="mr-auto">
-            <div className="bg-gray-800 rounded-md px-8  py-3 shadow-md hover:translate-x-1 transition-all duration-300 active:scale-105 text-white font-semibold my-1">
+            <div className=" bg-orange-500 rounded-md px-8  py-3 shadow-md hover:translate-x-1 transition-all duration-300 active:scale-105 text-white sm:bg-gray-800 font-semibold my-1">
               Get Started
             </div>
           </Link>
