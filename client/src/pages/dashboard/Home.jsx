@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div>
-      <div className="relative">
+      <div className="relative sm:h-1/2">
         <img
-          className="rounded-xl max-h-[35vh] lg:max-h-[40vh] w-full object-cover object-center"
+          className="rounded-xl object-cover object-center sm:max-h-[50vh]"
           src={LoginBG}
           alt=""
         />
-        <div className="text-gray-900 font-medium absolute top-0 left-0 px-8 py-6 flex flex-col gap-2 lg:gap-4 lg:text-xl tracking-tight leading-5 bottom-0 lg:leading-6 text-lg md:max-w-[60%] lg:max-w-[50%]">
+        <div className="sm:text-gray-900 text-white font-medium sm:absolute top-0 left-0 px-8 py-6 md:px-14 md:py-12 flex flex-col gap-4 lg:gap-4 lg:text-xl tracking-tight leading-5 bottom-0 lg:leading-6 text-lg md:max-w-[60%] lg:max-w-[50%]">
           <h1 className="text-4xl font-extrabold font-out lg:text-5xl">
             Improve your Spellings
           </h1>

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const NavLinks = ({ navLinks }) => {
   return (
     <div>
-      <nav className="flex capitalize text-white gap-4">
+      <nav className="flex flex-col md:flex-row capitalize text-white gap-4">
         {navLinks.map((navLink) => (
           <NavLink
             className={({ isActive }) =>

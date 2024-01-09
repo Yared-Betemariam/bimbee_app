@@ -52,8 +52,8 @@ const WordList = () => {
   };
 
   return (
-    <section className="flex gap-2">
-      <div className="flex w-full flex-col">
+    <section className="flex flex-col-reverse md:flex-row gap-2">
+      <div className=" w-full flex-col">
         <h1 className="text-3xl py-1 my-2 font-medium">Word List</h1>
         <div className="flex flex-col gap-2">
           {loading && <Loading />}

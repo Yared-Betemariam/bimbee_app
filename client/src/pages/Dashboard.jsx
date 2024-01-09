@@ -22,7 +22,7 @@ const Dashboard = () => {
       <section className="">
         <div className="bg-slate-800 py-3 px-6 bg-opacity-80">
           <section className="flex flex-col max-w-7xl mx-auto w-full">
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               {links.map((link) => (
                 <NavLink
                   className=" font-medium active:opacity-70 hover:scale-95 transition-all items-center ease-in-out flex gap-[-10px]"

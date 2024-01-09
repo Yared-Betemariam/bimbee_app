@@ -17,6 +17,7 @@ const ProfileSection = ({
       <div
         className="flex justify-center items-center gap-2 font-medium text-white  rounded-md bg-gray-800 px-4 py-[2.5px] bg-opacity-500 z-50 relative shadow-md"
         onMouseEnter={() => setIsHovering((prev) => !prev)}
+        onClick={() => setIsHovering((prev) => !prev)}
       >
         <p className=" capitalize font-out">{user?.username}</p>
         <MdAccountCircle className="md:text-[2.75rem] text-[2.5rem]" />

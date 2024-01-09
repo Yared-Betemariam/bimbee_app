@@ -126,7 +126,7 @@ const Top = ({ createPage, setCreatePage, search, setSearch }) => {
         onClick={() => setCreatePage(!createPage)}
       >
         <FaPlus className="text-lg" />
-        Create Test
+        <p className="hidden sm:flex">Create Test</p>
       </div>
     </div>
   );

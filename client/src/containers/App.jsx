@@ -54,7 +54,6 @@ const App = () => {
   if (loading)
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-800">
-        <Spinner />
         <h1 className="text-2xl font-semibold text-orange-400">Loading...</h1>
       </div>
     );
