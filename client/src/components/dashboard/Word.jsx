@@ -4,7 +4,7 @@ import { BiSolidRightArrow } from "react-icons/bi";
 const Word = ({ word, handleWordClick }) => {
   return (
     <div
-      className="bg-black bg-opacity-40 rounded-md px-6 py-3 capitalize overflow-hidden"
+      className="bg-black bg-opacity-40 rounded-md px-6 py-3 capitalize overflow-hidden hover:translate-x-1 transition-all ease-in-out active:scale-95"
       onClick={() => handleWordClick(word.name)}
     >
       <div className="flex items-center gap-2 font-medium text-lg">

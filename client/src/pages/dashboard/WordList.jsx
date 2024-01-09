@@ -12,6 +12,7 @@ const WordList = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [pC, setPC] = useState(false);
+  const [wordLoad, setWordLoad] = useState(false);
 
   const [cWord, setCWord] = useState(null);
   const getQuery = () => {
@@ -41,6 +42,8 @@ const WordList = () => {
   if (errorMsg) return <h1>{errorMsg}</h1>;
 
   const handleWordClick = async (name) => {
+    setWordLoad(true);
+    setError(null);
     try {
       const word = await getWord(name);
       setCWord(word.word);
@@ -48,6 +51,8 @@ const WordList = () => {
       const errorRes = await error.response;
       const errorData = errorRes.data;
       setError(errorData.error_message);
+    } finally {
+      setWordLoad(false);
     }
   };
 
@@ -98,10 +103,15 @@ const WordList = () => {
           </div>
         )}
       </div>
+
       {cWord && (
-        <div className="px-4">
+        <div className="px-4 w-[65%] flex flex-col">
           <h2 className="text-3xl py-1 my-2 font-medium">Word</h2>
-          <WordBar cWord={cWord} />
+          {wordLoad ? (
+            <h1 className="text-2xl mx-4 my-4 font-medium">Loading...</h1>
+          ) : (
+            <WordBar cWord={cWord} />
+          )}
         </div>
       )}
     </section>
