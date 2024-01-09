@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { MdClose, MdNavigateNext, MdSpeaker } from "react-icons/md";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { getTestQ, postPerf } from "../../../network/words_api";
 import { HiSpeakerWave } from "react-icons/hi2";
 import { Loading } from "../../../components";
+
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import { FaSadCry } from "react-icons/fa";
 
 const TestSimulation = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,6 +23,15 @@ const TestSimulation = () => {
   const navigate = useNavigate();
   const [testWords, setTestWords] = useState([]);
 
+  const [clientWord, setClientWord] = useState("");
+  const [nV, setNV] = useState(false);
+
+  const [retry, setRetry] = useState(false);
+  const [retryTimes, setRetryTimes] = useState(0);
+
+  const [focusList, setFocusList] = useState([]);
+  const [wordStop, setWordStop] = useState(test?.words);
+
   useEffect(() => {
     setLoading(true);
     setError(null);
@@ -30,7 +42,6 @@ const TestSimulation = () => {
           setTestWords(res.words);
         }
       } catch (error) {
-        console.log(error);
         const errorRes = await error.response;
         const errorData = errorRes.data;
         setError(errorData.error_message);
@@ -40,6 +51,10 @@ const TestSimulation = () => {
     };
     fetching();
   }, []);
+
+  useEffect(() => {
+    handleSpeak(testWords[wordStop]);
+  }, [wordStop]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,8 +80,7 @@ const TestSimulation = () => {
       remainingSeconds
     )}`;
   };
-  const [focusList, setFocusList] = useState([]);
-  const [wordStop, setWordStop] = useState(test.words);
+
   const handleClose = () => {
     const newTest = {
       ...test,
@@ -83,7 +97,7 @@ const TestSimulation = () => {
     setError(null);
     const fetching = async () => {
       try {
-        if (test) {
+        if (test && focusList.length > 0) {
           const res = await postPerf({ focusList });
         }
       } catch (error) {
@@ -96,16 +110,18 @@ const TestSimulation = () => {
         navigate("/tests");
       }
     };
-    fetching();
+    if (focusList.length > 0) {
+      fetching();
+    } else {
+      navigate("/tests");
+    }
   };
-
-  const [clientWord, setClientWord] = useState("");
-
-  const [retry, setRetry] = useState(false);
-  const [retryTimes, setRetryTimes] = useState(0);
 
   const next = () => {
     if (clientWord.toLowerCase() === testWords[wordStop].name) {
+      setRetry(false);
+      setNV(false);
+      setClientWord("");
       setWordStop(wordStop + 1);
     } else {
       setRetry(true);
@@ -117,6 +133,31 @@ const TestSimulation = () => {
   };
   if (loading) return <Loading />;
   if (testWords[wordStop] === undefined) clearInterval(timeInterval);
+
+  const nVD = () => {
+    setTime((time) => time + 60 * 6);
+  };
+
+  const handleSpeak = (cWord) => {
+    if ("speechSynthesis" in window) {
+      const synth = window.speechSynthesis;
+      const utterance = new SpeechSynthesisUtterance(cWord?.name);
+      utterance.volume = 1; // 0 to 1
+      utterance.rate = 1; // 0.1 to 10
+      utterance.pitch = 1;
+
+      const voices = synth.getVoices();
+      const selectedVoice = voices.find(
+        (voice) => voice.name === "Google UK English Male"
+      );
+      utterance.voice = selectedVoice;
+
+      // Speak the utterance
+      synth.speak(utterance);
+    } else {
+      alert("Speech synthesis is not supported in your browser.");
+    }
+  };
 
   return (
     <div className="max-w-7xl px-6 py-4 mx-auto w-full flex h-full flex-col relative">
@@ -138,7 +179,14 @@ const TestSimulation = () => {
               <p className="text-xl font-medium">{test?.name}</p>
               {time && <p className="text-xl opacity-60">{formatTime(time)}</p>}
             </div>
-            <WordBox cWord={testWords[wordStop]} />
+            <WordBox
+              wordStop={wordStop}
+              nVD={nVD}
+              nV={nV}
+              setNV={setNV}
+              handleSpeak={() => handleSpeak(testWords[wordStop])}
+              cWord={testWords[wordStop]}
+            />
             {retry && (
               <p className="font-medium text-lg text-red-500 px-4 my-1">
                 Wrong try again
@@ -149,7 +197,6 @@ const TestSimulation = () => {
                 <input
                   type="text"
                   className="flex-1 bg-black bg-opacity-25 px-6 py-3 rounded-l-full shadow-md"
-                  required
                   value={clientWord}
                   onChange={(e) => setClientWord(e.target.value)}
                 />
@@ -171,35 +218,39 @@ const TestSimulation = () => {
   );
 };
 
-const WordBox = ({ cWord }) => {
-  const handleSpeak = () => {
-    if ("speechSynthesis" in window) {
-      const synth = window.speechSynthesis;
-      const utterance = new SpeechSynthesisUtterance(cWord.name);
-      utterance.volume = 1; // 0 to 1
-      utterance.rate = 1; // 0.1 to 10
-      utterance.pitch = 1;
-
-      const voices = synth.getVoices();
-      const selectedVoice = voices.find(
-        (voice) => voice.name === "Google UK English Male"
-      );
-      utterance.voice = selectedVoice;
-
-      // Speak the utterance
-      synth.speak(utterance);
-    } else {
-      alert("Speech synthesis is not supported in your browser.");
-    }
-  };
+const WordBox = ({ handleSpeak, nV, setNV, wordStop, cWord, nVD }) => {
   return (
     <section className=" capitalize py-4 font-medium flex flex-col text-xl gap-4">
       <div>
         <div className="flex items-center gap-4 mb-2 font-out">
           <HiSpeakerWave
-            className="bg-orange-400 p-4 rounded-full active:opacity-80 mx-auto hover:p-[0.6rem] transition-all text-gray-900 text-[4rem]"
+            className="bg-orange-400 p-4 rounded-full active:opacity-80 hover:p-[0.6rem] transition-all text-gray-900 text-[4rem]"
             onClick={handleSpeak}
           />
+          <div className="flex flex-col text-opacity-60 gap-1">
+            <div>
+              <span className="opacity-60 text-base">View word </span>(+6:00)
+            </div>
+            <div className="flex gap-2 items-center">
+              {nV ? (
+                <MdVisibilityOff
+                  className="hover:opacity-80 transition-all active:scale-105"
+                  onClick={() => {
+                    setNV(!nV);
+                  }}
+                />
+              ) : (
+                <MdVisibility
+                  className="hover:opacity-80 transition-all active:scale-105"
+                  onClick={() => {
+                    nVD();
+                    setNV(!nV);
+                  }}
+                />
+              )}
+              {nV && <p>{cWord?.name}</p>}
+            </div>
+          </div>
         </div>
         <h4>{cWord?.meaning}</h4>
       </div>
@@ -212,7 +263,7 @@ const EndScreen = () => {
     <div className="text-lg">
       <h1>The word list has ended</h1>
       <div className="underline text-orange-400 font-medium">
-        Go back to list
+        <Link to="/tests">Go back to test</Link>
       </div>
     </div>
   );

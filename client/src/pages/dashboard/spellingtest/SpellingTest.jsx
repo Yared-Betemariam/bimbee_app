@@ -22,6 +22,8 @@ const SpellingTest = () => {
 
   const navigate = useNavigate();
 
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
     setLoading(true);
     setError("");
@@ -62,7 +64,12 @@ const SpellingTest = () => {
       <section className="max-w-7xl px-6 py-4 mx-auto w-full flex h-full flex-col relative">
         <div>
           <h1 className="font-out text-2xl font-medium py-2">Spelling test</h1>
-          <Top createPage={createPage} setCreatePage={setCreatePage} />
+          <Top
+            createPage={createPage}
+            setCreatePage={setCreatePage}
+            setSearch={setSearch}
+            search={search}
+          />
           <div className="my-4 flex flex-col gap-4">
             {!testList.length ? (
               <>
@@ -77,15 +84,17 @@ const SpellingTest = () => {
                 </p>
               </>
             ) : (
-              testList.map((test) => (
-                <TestBox
-                  test={test}
-                  key={test.name}
-                  deleteTest={deleteTest}
-                  wordNo={wordNo}
-                  startSimulation={startSimulation}
-                />
-              ))
+              testList
+                .filter((item) => item.name.includes(search))
+                .map((test) => (
+                  <TestBox
+                    test={test}
+                    key={test.name}
+                    deleteTest={deleteTest}
+                    wordNo={wordNo}
+                    startSimulation={startSimulation}
+                  />
+                ))
             )}
           </div>
         </div>
@@ -99,7 +108,7 @@ const SpellingTest = () => {
   );
 };
 
-const Top = ({ createPage, setCreatePage }) => {
+const Top = ({ createPage, setCreatePage, search, setSearch }) => {
   return (
     <div className="flex gap-2">
       <div className="flex-1 relative flex shadow-md">
@@ -107,6 +116,8 @@ const Top = ({ createPage, setCreatePage }) => {
           type="text"
           className="flex-1 rounded-l-full bg-black bg-opacity-30 text-white px-6 py-3 pr-12"
           placeholder="Search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <FaSearch className=" absolute right-4 text-xl opacity-50 my-auto bottom-0 top-0" />
       </div>
@@ -149,8 +160,11 @@ const TestBox = ({ test, wordNo, deleteTest, startSimulation }) => {
             <p
               className={`bg-orange-600 rounded-full mr-auto h-full text-white my-1 px-3 font-medium`}
             >
-              {test.words} Done you are{" "}
-              {`${String(Math.ceil((test.words * 100) / wordNo))}%`} There.
+              {test.words} Done. you are{" "}
+              {`${String(
+                Math.floor((test.words * 100) / wordNo)
+              )}% (${wordNo})`}{" "}
+              There.
             </p>
           </div>
         )}
@@ -180,7 +194,7 @@ const CreatePage = ({ setTestList, setCreatePage, setError }) => {
     name: "",
     type: "p",
     time: 0,
-    words: 1,
+    words: 0,
     wordNo: 10,
     seed: "2k1010",
   });

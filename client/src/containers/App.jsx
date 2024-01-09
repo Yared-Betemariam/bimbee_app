@@ -64,7 +64,7 @@ const App = () => {
       <Routes>
         {/* client users */}
         <Route path="/" element={<Layout setUser={setUser} user={user} />}>
-          <Route index element={<Link to="/dashboard">Get Started</Link>} />
+          <Route index element={<Navigate to="/dashboard" />} />
           <Route path="dashboard" element={<Dashboard />}>
             <Route index element={<DashboardHome />} />
             <Route path="words" element={<WordList />} />

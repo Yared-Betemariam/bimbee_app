@@ -38,7 +38,6 @@ export const getTestQ = async (credentials) => {
   return res.data;
 };
 export const postPerf = async (credentials) => {
-  console.log(credentials);
   const res = await axios.post(
     getAU(`/words/perf`),
     JSON.stringify(credentials),

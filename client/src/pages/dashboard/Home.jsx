@@ -1,5 +1,6 @@
 import React from "react";
 import { LoginBG } from "../../assets";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -19,9 +20,11 @@ const Home = () => {
             by our fellow english teachers.
           </p>
           <p>To getstarted using click here</p>
-          <div className="bg-gray-800 rounded-md px-8 mr-auto py-3 shadow-md hover:translate-x-1 transition-all duration-300 active:scale-105 text-white font-semibold my-1">
-            Get Started
-          </div>
+          <Link to="words" className="mr-auto">
+            <div className="bg-gray-800 rounded-md px-8  py-3 shadow-md hover:translate-x-1 transition-all duration-300 active:scale-105 text-white font-semibold my-1">
+              Get Started
+            </div>
+          </Link>
         </div>
       </div>
     </div>

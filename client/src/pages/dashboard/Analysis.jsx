@@ -41,7 +41,7 @@ const Analysis = () => {
           </p>
           <div className="flex flex-col gap-4 my-4">
             {focusList.map((word) => (
-              <Word word={word} handleWordClick={() => {}} />
+              <Word word={word} handleWordClick={() => {}} key={word.name} />
             ))}
           </div>
         </div>

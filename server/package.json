@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bottleneck": "^2.19.5",
     "connect-mongo": "^5.1.0",
     "cors": "^2.8.5",
     "create-http-error": "^1.0.3",
