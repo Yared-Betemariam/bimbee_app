@@ -1,4 +1,4 @@
-export const baseAPIURL = "http://localhost:3500/api";
+export const baseAPIURL = "https://bimbee.onrender.com/api";
 export async function fetchData(input, init) {
   const res = await fetch(input, init);
   return res;
