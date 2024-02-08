@@ -39,6 +39,10 @@ app.use(
 app.use("/api/auth", UserRouter);
 app.use("/api/words", authenticationCheck, WordRouter);
 
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "welcome to bimbeeAPI" });
+});
+
 app.use(notFound);
 app.use(errorHandler);
 
